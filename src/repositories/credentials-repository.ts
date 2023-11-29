@@ -25,5 +25,13 @@ async function getAllCredentials() {
     return prisma.credential.findMany({});
 }
 
+async function getCredential(credentialId: number, userId: number) {
+    return prisma.credential.findFirst({
+        where:{
+            id: credentialId,
+            userId: userId
+        }
+    })
+}
 
-export const credentialsRepository = { createCredential, findByTitle, getAllCredentials }
+export const credentialsRepository = { createCredential, findByTitle, getAllCredentials, getCredential }
