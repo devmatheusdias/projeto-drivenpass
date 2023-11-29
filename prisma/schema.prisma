@@ -8,11 +8,12 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
+  id         Int          @id @default(autoincrement())
+  email      String       @unique
+  password   String
   Credential Credential[]
   Network    Network[]
+  Session    Session[]
 
   @@map("users")
 }
@@ -24,7 +25,7 @@ model Credential {
   url      String
   username String
   password String
-  userId Int
+  userId   Int
 
   @@map("credentials")
 }
@@ -38,4 +39,12 @@ model Network {
   userId   Int
 
   @@map("networks")
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  token     String
+  @@map("sessions")
 }

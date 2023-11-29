@@ -3,10 +3,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import errorHandlingMiddleware from './middlewares/error-handling-middleware';
 
-import {
-  usersRouter,
-  
-} from '@/routers';
+import {usersRouter, authenticationRouter, credentialsRouter} from '@/routers';
 
 const app = express();
 app
@@ -14,6 +11,8 @@ app
   .use(express.json())
   .get('/health', (_req, res) => res.send('OK!'))
   .use('/users', usersRouter)
+  .use('/signIn', authenticationRouter)
+  .use('/credentials', credentialsRouter)
   .use(errorHandlingMiddleware);
 
 
