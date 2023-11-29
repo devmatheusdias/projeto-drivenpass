@@ -1,5 +1,6 @@
 import { Credential } from "@prisma/client";
 import bcrypt from "bcrypt"
+import { notFoundError } from "@/errors/not-found-error";
 import { DuplicatedCredentialError } from "@/errors/duplicate-credential-error";
 import { credentialsRepository } from "@/repositories/credentials-repository";
 
@@ -21,6 +22,15 @@ async function createCredential(title: string, url: string, username: string, pa
     return credentialsRepository.createCredential(title, url, username, hashedPassword, userId)
 }
 
-const credentialService = { findByTitle, createCredential}
+async function getAllCredentials(){
+
+    const credentials = await credentialsRepository.getAllCredentials();
+    if(credentials.length === 0) throw notFoundError();
+
+    return credentials
+
+}
+
+const credentialService = { findByTitle, createCredential, getAllCredentials}
 
 export default credentialService;

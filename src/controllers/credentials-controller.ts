@@ -13,3 +13,9 @@ export async function createCredentials(req: Request, res: Response){
   return res.status(httpStatus.CREATED).json({credential})
 }
 
+export async function getAllCredentials(req: Request, res: Response){
+    
+    const credentials = await credentialService.getAllCredentials();
+
+    return res.status(httpStatus.OK).json({credentials})
+}

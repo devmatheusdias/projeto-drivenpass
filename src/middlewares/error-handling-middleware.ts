@@ -50,6 +50,18 @@ export default function errorHandlingMiddleware(
     });
   }
 
+  if (error.name === 'NotFoundError') {
+    return res.status(httpStatus.NOT_FOUND).send({
+      message: error.message,
+    });
+  }
+
+
+  if (error.name === 'ForbiddenError') {
+    return res.status(httpStatus.FORBIDDEN).send({
+      message: error.message,
+    });
+  }
 
 
   
