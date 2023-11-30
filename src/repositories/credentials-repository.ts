@@ -1,6 +1,6 @@
 import prisma from "@/config/database";
 
-async function findByTitle(title: string) {
+async function findCrendentialByTitle(title: string) {
 
   return prisma.credential.findFirst({
     where:{
@@ -8,6 +8,15 @@ async function findByTitle(title: string) {
     }
   });
 }
+
+async function findCrendentialById(credentialId: number) {
+
+    return prisma.credential.findFirst({
+      where:{
+        id: credentialId
+      }
+    });
+  }
 
 async function createCredential(title: string, url: string, username: string, password: string, userId: number) {
     return prisma.credential.create({
@@ -34,4 +43,13 @@ async function getCredential(credentialId: number, userId: number) {
     })
 }
 
-export const credentialsRepository = { createCredential, findByTitle, getAllCredentials, getCredential }
+async function deleteCredential(credentialId: number, userId: number) {
+    return prisma.credential.delete({
+        where:{
+            id: credentialId,
+            userId
+        }
+    })
+}
+
+export const credentialsRepository = { createCredential, findCrendentialByTitle, findCrendentialById, getAllCredentials, getCredential, deleteCredential}

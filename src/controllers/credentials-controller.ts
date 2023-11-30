@@ -26,5 +26,13 @@ export async function getCredential(req: Request, res: Response){
 
     const credential = await credentialService.getCredential(Number(id), userId);
     return res.status(httpStatus.OK).json({credential})
+}
+
+export async function deleteCredential(req: Request, res: Response){
+    const {id} = req.params;
+    const userId = 5;
+
+    const credential = await credentialService.deleteCredential(Number(id), userId);
+    return res.status(httpStatus.OK).json({credential})
 
 }

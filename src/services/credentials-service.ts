@@ -6,9 +6,15 @@ import { credentialsRepository } from "@/repositories/credentials-repository";
 import { ForbiddenError } from "@/errors/forbidden-error";
 
 export async function findByTitle(title: string){
-    const titleFound = await credentialsRepository.findByTitle(title);
+    const titleFound = await credentialsRepository.findCrendentialByTitle(title);
     return titleFound;
 }
+
+export async function findCrendentialById(credentialId: number){
+    const titleFound = await credentialsRepository.findCrendentialById(credentialId);
+    return titleFound;
+}
+
 
 async function createCredential(title: string, url: string, username: string, password: string, userId: number){
 
@@ -39,12 +45,25 @@ export async function getCredential(credentialId: number, userId: number){
 
     // Se o usuário procurar por uma credencial que não é dele ou que não existe
     if(credential.userId != userId) throw ForbiddenError();
-
     
     return credential;
 }
 
+export async function deleteCredential(credentialId: number, userId: number){
 
-const credentialService = { findByTitle, createCredential, getAllCredentials, getCredential}
+    const credential = await findCrendentialById(credentialId);
+    // Se o usuário procurar por uma credencial que não é dele ou que não existe
+    if(!credential) throw notFoundError();
+
+    // Se o usuário procurar por uma credencial que não é dele ou que não existe
+    if(credential.userId != userId) throw ForbiddenError();
+    
+
+    await credentialsRepository.deleteCredential(credential.id, userId);
+
+    return credential;
+}
+
+const credentialService = { findByTitle, createCredential, getAllCredentials, getCredential, deleteCredential}
 
 export default credentialService;
