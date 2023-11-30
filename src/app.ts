@@ -3,7 +3,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import errorHandlingMiddleware from './middlewares/error-handling-middleware';
 
-import {usersRouter, authenticationRouter, credentialsRouter} from '@/routers';
+import {usersRouter, authenticationRouter, credentialsRouter, networkRouter} from '@/routers';
 
 const app = express();
 app
@@ -13,6 +13,7 @@ app
   .use('/users', usersRouter)
   .use('/signIn', authenticationRouter)
   .use('/credentials', credentialsRouter)
+  .use('/network', networkRouter)
   .use(errorHandlingMiddleware);
 
 
