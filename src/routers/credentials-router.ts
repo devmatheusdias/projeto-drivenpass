@@ -7,6 +7,7 @@ import { createCredentials, getAllCredentials, getCredential, deleteCredential }
 const credentialsRouter = Router();
 
 credentialsRouter
+    .all('/*', authenticateToken)
     .post('/', validateBody(credentialSchema), createCredentials)
     .get('/', getAllCredentials)
     .get('/:id', getCredential)

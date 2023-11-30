@@ -11,7 +11,7 @@ app
   .use(express.json())
   .get('/health', (_req, res) => res.send('OK!'))
   .use('/users', usersRouter)
-  .use('/signIn', authenticationRouter)
+  .use('/auth', authenticationRouter)
   .use('/credentials', credentialsRouter)
   .use('/network', networkRouter)
   .use(errorHandlingMiddleware);

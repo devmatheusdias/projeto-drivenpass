@@ -8,6 +8,7 @@ import { createNetworkSchema } from '@/schemas/network-schema';
 const networkRouter = Router();
 
 networkRouter
+    .all('/*', authenticateToken)
     .post('/', validateBody(createNetworkSchema), createNetwork)
     .get('/', getAllNetworks)
     .get('/:id', getNetwork)

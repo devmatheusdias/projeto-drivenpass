@@ -5,6 +5,6 @@ import { signInSchema } from '@/schemas/authentication-schemas';
 
 const authenticationRouter = Router();
 
-authenticationRouter.post('/', validateBody(signInSchema), singInPost);
+authenticationRouter.post('/sign-in', validateBody(signInSchema), singInPost);
 
 export { authenticationRouter };

@@ -4,6 +4,7 @@ import { unauthorizedError } from '@/errors/unauthorized-error';
 import { authenticationRepository } from '@/repositories/authentication-repository';
 
 export async function authenticateToken(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+
   const authHeader = req.header('Authorization');
   if (!authHeader) throw unauthorizedError();
 
