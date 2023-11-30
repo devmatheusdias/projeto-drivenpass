@@ -4,7 +4,7 @@ import { Network } from "@prisma/client";
 import networkService from "@/services/network-service";
 
 
-export async function createNetwork(req: Request, res: Response){
+export async function createNetwork(req: Request, res: Response): Promise<Response>{
   const { title, network, password } = req.body as Network;
 //   const { userId } = req;
 
@@ -13,14 +13,14 @@ export async function createNetwork(req: Request, res: Response){
   return res.status(httpStatus.CREATED).json({newNetwork})
 }
 
-export async function getAllNetworks(req: Request, res: Response){
+export async function getAllNetworks(req: Request, res: Response): Promise<Response>{
     
      const networks = await networkService.getAllNetworks();
 
      return res.status(httpStatus.OK).json({networks})
 }
 
-export async function getNetwork(req: Request, res: Response){
+export async function getNetwork(req: Request, res: Response): Promise<Response>{
     const {id} = req.params;
     const userId = 5;
 
@@ -28,7 +28,7 @@ export async function getNetwork(req: Request, res: Response){
     return res.status(httpStatus.OK).json({network})
 }
 
-export async function deleteNetwork(req: Request, res: Response){
+export async function deleteNetwork(req: Request, res: Response): Promise<Response>{
     const {id} = req.params;
     const userId = 5;
 

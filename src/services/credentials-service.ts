@@ -5,18 +5,18 @@ import { DuplicatedCredentialError } from "@/errors/duplicate-credential-error";
 import { credentialsRepository } from "@/repositories/credentials-repository";
 import { ForbiddenError } from "@/errors/forbidden-error";
 
-export async function findByTitle(title: string){
+export async function findByTitle(title: string): Promise<Credential>{
     const titleFound = await credentialsRepository.findCrendentialByTitle(title);
     return titleFound;
 }
 
-export async function findCrendentialById(credentialId: number){
+export async function findCrendentialById(credentialId: number): Promise<Credential>{
     const titleFound = await credentialsRepository.findCrendentialById(credentialId);
     return titleFound;
 }
 
 
-async function createCredential(title: string, url: string, username: string, password: string, userId: number){
+async function createCredential(title: string, url: string, username: string, password: string, userId: number): Promise<Credential>{
 
     const newTitle = await findByTitle(title);
 
@@ -29,7 +29,7 @@ async function createCredential(title: string, url: string, username: string, pa
     return credentialsRepository.createCredential(title, url, username, hashedPassword, userId)
 }
 
-async function getAllCredentials(){
+async function getAllCredentials(): Promise<Credential[]>{
 
     const credentials = await credentialsRepository.getAllCredentials();
     if(credentials.length === 0) throw notFoundError();
@@ -37,7 +37,7 @@ async function getAllCredentials(){
     return credentials
 }
 
-export async function getCredential(credentialId: number, userId: number){
+export async function getCredential(credentialId: number, userId: number): Promise<Credential>{
 
     const credential = await credentialsRepository.getCredential(credentialId, userId);
     // Se o usuário procurar por uma credencial que não é dele ou que não existe
@@ -49,7 +49,7 @@ export async function getCredential(credentialId: number, userId: number){
     return credential;
 }
 
-export async function deleteCredential(credentialId: number, userId: number){
+export async function deleteCredential(credentialId: number, userId: number): Promise<Credential>{
 
     const credential = await findCrendentialById(credentialId);
     // Se o usuário procurar por uma credencial que não é dele ou que não existe

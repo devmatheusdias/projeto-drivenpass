@@ -15,11 +15,10 @@ export async function createUser(email: string, password: string): Promise<User>
 
 }
 
-async function validateUniqueEmail(email: string) {
+async function validateUniqueEmail(email: string): Promise<void>{
   const userWithSameEmail = await userRepository.findByEmail(email);
-  if (userWithSameEmail) {
-    throw duplicatedEmailError();
-  }
+  if (userWithSameEmail) throw duplicatedEmailError();
+
 }
 
 export const userService = {

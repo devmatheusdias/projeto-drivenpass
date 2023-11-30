@@ -1,6 +1,7 @@
 import prisma from "@/config/database";
+import { Network } from "@prisma/client";
 
-async function findNetworkById(networkId: number) {
+async function findNetworkById(networkId: number): Promise<Network> {
 
     return prisma.network.findFirst({
       where:{
@@ -9,7 +10,7 @@ async function findNetworkById(networkId: number) {
     });
   }
 
-async function createNetwork(title: string, network: string, password: string, userId: number) {
+async function createNetwork(title: string, network: string, password: string, userId: number) : Promise<Network>{
     return prisma.network.create({
         data:{
           title,
@@ -20,11 +21,11 @@ async function createNetwork(title: string, network: string, password: string, u
     })
 }
 
-async function getAllNetworks() {
+async function getAllNetworks(): Promise<Network[]> {
     return prisma.network.findMany({});
 }
 
-async function getNetwork(networkId: number, userId: number) {
+async function getNetwork(networkId: number, userId: number) : Promise<Network>{
     return prisma.network.findFirst({
         where:{
             id: networkId,
@@ -33,7 +34,7 @@ async function getNetwork(networkId: number, userId: number) {
     })
 }
 
-async function deleteNetwork(networkId: number, userId: number) {
+async function deleteNetwork(networkId: number, userId: number): Promise<Network> {
     return prisma.network.delete({
         where:{
             id: networkId,

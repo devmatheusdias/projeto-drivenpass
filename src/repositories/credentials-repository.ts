@@ -1,6 +1,7 @@
 import prisma from "@/config/database";
+import { Credential } from "@prisma/client";
 
-async function findCrendentialByTitle(title: string) {
+async function findCrendentialByTitle(title: string): Promise<Credential> {
 
   return prisma.credential.findFirst({
     where:{
@@ -9,7 +10,7 @@ async function findCrendentialByTitle(title: string) {
   });
 }
 
-async function findCrendentialById(credentialId: number) {
+async function findCrendentialById(credentialId: number) : Promise<Credential>{
 
     return prisma.credential.findFirst({
       where:{
@@ -18,7 +19,7 @@ async function findCrendentialById(credentialId: number) {
     });
   }
 
-async function createCredential(title: string, url: string, username: string, password: string, userId: number) {
+async function createCredential(title: string, url: string, username: string, password: string, userId: number) : Promise<Credential>{
     return prisma.credential.create({
         data:{
             title, 
@@ -30,11 +31,11 @@ async function createCredential(title: string, url: string, username: string, pa
     })
 }
 
-async function getAllCredentials() {
+async function getAllCredentials(): Promise<Credential[]> {
     return prisma.credential.findMany({});
 }
 
-async function getCredential(credentialId: number, userId: number) {
+async function getCredential(credentialId: number, userId: number) : Promise<Credential>{
     return prisma.credential.findFirst({
         where:{
             id: credentialId,
@@ -43,7 +44,7 @@ async function getCredential(credentialId: number, userId: number) {
     })
 }
 
-async function deleteCredential(credentialId: number, userId: number) {
+async function deleteCredential(credentialId: number, userId: number) : Promise<Credential>{
     return prisma.credential.delete({
         where:{
             id: credentialId,
