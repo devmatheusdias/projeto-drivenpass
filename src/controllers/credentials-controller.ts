@@ -10,14 +10,14 @@ export async function createCredentialsController(req: AuthenticatedRequest, res
 
   const credential = await createCredentialService(title, url, username, password, userId);
 
-  return res.status(httpStatus.CREATED).json({credential})
+  return res.status(httpStatus.CREATED).json(credential)
 }
 
 export async function getAllCredentialsController(req: AuthenticatedRequest, res: Response): Promise<Response>{
     
     const credentials = await getAllCredentialsService();
 
-    return res.status(httpStatus.OK).json({credentials})
+    return res.status(httpStatus.OK).send(credentials)
 }
 
 export async function getCredentialController(req: AuthenticatedRequest, res: Response): Promise<Response>{
