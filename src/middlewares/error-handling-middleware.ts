@@ -5,7 +5,7 @@ export type AppError = Error & {
   name: string;
 };
 
-export default function errorHandlingMiddleware(
+export function errorHandlingMiddleware(
   error: Error | AppError,
   req: Request,
   res: Response,

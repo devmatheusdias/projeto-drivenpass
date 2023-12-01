@@ -1,7 +1,7 @@
-import prisma from "@/config/database";
+import prisma from "config/database";
 import { Network } from "@prisma/client";
 
-async function findNetworkById(networkId: number): Promise<Network> {
+export async function findNetworkById(networkId: number): Promise<Network> {
 
     return prisma.network.findFirst({
       where:{
@@ -10,7 +10,7 @@ async function findNetworkById(networkId: number): Promise<Network> {
     });
   }
 
-async function createNetwork(title: string, network: string, password: string, userId: number) : Promise<Network>{
+export async function createNetwork(title: string, network: string, password: string, userId: number) : Promise<Network>{
     return prisma.network.create({
         data:{
           title,
@@ -21,11 +21,11 @@ async function createNetwork(title: string, network: string, password: string, u
     })
 }
 
-async function getAllNetworks(): Promise<Network[]> {
+export async function getAllNetworks(): Promise<Network[]> {
     return prisma.network.findMany({});
 }
 
-async function getNetwork(networkId: number, userId: number) : Promise<Network>{
+export async function getNetwork(networkId: number, userId: number) : Promise<Network>{
     return prisma.network.findFirst({
         where:{
             id: networkId,
@@ -34,7 +34,7 @@ async function getNetwork(networkId: number, userId: number) : Promise<Network>{
     })
 }
 
-async function deleteNetwork(networkId: number, userId: number): Promise<Network> {
+export async function deleteNetwork(networkId: number, userId: number): Promise<Network> {
     return prisma.network.delete({
         where:{
             id: networkId,
@@ -42,5 +42,3 @@ async function deleteNetwork(networkId: number, userId: number): Promise<Network
         }
     })
 }
-
-export const networkRepository = { createNetwork, findNetworkById, getAllNetworks, getNetwork, deleteNetwork}

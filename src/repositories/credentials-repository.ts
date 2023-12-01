@@ -1,7 +1,7 @@
-import prisma from "@/config/database";
+import prisma from "config/database";
 import { Credential } from "@prisma/client";
 
-async function findCrendentialByTitle(title: string): Promise<Credential> {
+export async function findCrendentialByTitle(title: string): Promise<Credential> {
 
   return prisma.credential.findFirst({
     where:{
@@ -10,7 +10,7 @@ async function findCrendentialByTitle(title: string): Promise<Credential> {
   });
 }
 
-async function findCrendentialById(credentialId: number) : Promise<Credential>{
+export async function findCrendentialById(credentialId: number) : Promise<Credential>{
 
     return prisma.credential.findFirst({
       where:{
@@ -19,7 +19,7 @@ async function findCrendentialById(credentialId: number) : Promise<Credential>{
     });
   }
 
-async function createCredential(title: string, url: string, username: string, password: string, userId: number) : Promise<Credential>{
+export async function createCredential(title: string, url: string, username: string, password: string, userId: number) : Promise<Credential>{
     return prisma.credential.create({
         data:{
             title, 
@@ -31,11 +31,11 @@ async function createCredential(title: string, url: string, username: string, pa
     })
 }
 
-async function getAllCredentials(): Promise<Credential[]> {
+export async function getAllCredentials(): Promise<Credential[]> {
     return prisma.credential.findMany({});
 }
 
-async function getCredential(credentialId: number, userId: number) : Promise<Credential>{
+export async function getCredential(credentialId: number, userId: number) : Promise<Credential>{
     return prisma.credential.findFirst({
         where:{
             id: credentialId,
@@ -44,7 +44,7 @@ async function getCredential(credentialId: number, userId: number) : Promise<Cre
     })
 }
 
-async function deleteCredential(credentialId: number, userId: number) : Promise<Credential>{
+export async function deleteCredential(credentialId: number, userId: number) : Promise<Credential>{
     return prisma.credential.delete({
         where:{
             id: credentialId,
@@ -52,5 +52,3 @@ async function deleteCredential(credentialId: number, userId: number) : Promise<
         }
     })
 }
-
-export const credentialsRepository = { createCredential, findCrendentialByTitle, findCrendentialById, getAllCredentials, getCredential, deleteCredential}

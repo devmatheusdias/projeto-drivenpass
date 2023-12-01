@@ -1,9 +1,8 @@
 import 'express-async-errors';
 import express, { Express } from 'express';
 import cors from 'cors';
-import errorHandlingMiddleware from './middlewares/error-handling-middleware';
-
-import {usersRouter, authenticationRouter, credentialsRouter, networkRouter} from '@/routers';
+import {errorHandlingMiddleware} from "../src/middlewares/error-handling-middleware"
+import {usersRouter, authenticationRouter, credentialsRouter, networkRouter} from "routers"
 
 const app = express();
 

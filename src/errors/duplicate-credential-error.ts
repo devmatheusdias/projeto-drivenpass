@@ -1,4 +1,5 @@
-import { ApplicationError } from '@/protocols';
+import { ApplicationError } from 'protocols';
+
 
 export function DuplicatedCredentialError(): ApplicationError {
   return {

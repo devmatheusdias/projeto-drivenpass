@@ -1,5 +1,5 @@
 import { Prisma, Session} from '@prisma/client';
-import prisma from '@/config/database';
+import prisma from 'config/database';
 
 async function createSession(data: Prisma.SessionUncheckedCreateInput): Promise<Session> {
   return prisma.session.create({

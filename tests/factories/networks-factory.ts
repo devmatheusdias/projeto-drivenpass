@@ -1,4 +1,4 @@
-import prisma from "@/config/database"
+import prisma from "config/database"
 import { faker } from "@faker-js/faker"
 
 export async function createNetwork(title: string, network: string, password: string, userId: number ){

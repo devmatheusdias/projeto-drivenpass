@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { createUserSchema } from '@/schemas/user-schemas';
-import { validateBody } from '@/middlewares';
-import {usersPost} from "@/controllers/users-controller"
+import { validateBody } from 'middlewares';
+import { createUserSchema } from 'schemas';
+import { createUserController } from 'controllers';
 
 const usersRouter = Router();
 
-usersRouter.post('/', validateBody(createUserSchema), usersPost);
+usersRouter.post('/', validateBody(createUserSchema), createUserController);
 
 export { usersRouter };

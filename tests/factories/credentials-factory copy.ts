@@ -1,4 +1,4 @@
-import prisma from "@/config/database";
+import prisma from "config/database";
 import { faker } from "@faker-js/faker"
 
 

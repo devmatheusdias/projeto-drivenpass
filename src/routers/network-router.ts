@@ -1,16 +1,16 @@
 import { Router } from 'express';
-import { validateBody} from '@/middlewares';
-import { authenticateToken } from '@/middlewares/authentication-middleware';
-import { createNetwork, getAllNetworks, getNetwork, deleteNetwork } from '@/controllers/network-controller';
-import { createNetworkSchema } from '@/schemas/network-schema';
+import { validateBody} from 'middlewares';
+import { authenticateToken } from 'middlewares';
+import { createNetworkController, getAllNetworksController, getNetworkController, deleteNetworkController } from 'controllers';
+import { createNetworkSchema } from 'schemas';
 
 
 const networkRouter = Router();
 
 networkRouter
     .all('/*', authenticateToken)
-    .post('/', validateBody(createNetworkSchema), createNetwork)
-    .get('/', getAllNetworks)
-    .get('/:id', getNetwork)
-    .put('/:id', deleteNetwork)
+    .post('/', validateBody(createNetworkSchema), createNetworkController)
+    .get('/', getAllNetworksController)
+    .get('/:id', getNetworkController)
+    .put('/:id', deleteNetworkController)
 export { networkRouter };

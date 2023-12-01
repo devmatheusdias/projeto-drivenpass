@@ -1,22 +1,21 @@
 import { Credential } from "@prisma/client";
 import bcrypt from "bcrypt"
-import { notFoundError } from "@/errors/not-found-error";
-import { DuplicatedCredentialError } from "@/errors/duplicate-credential-error";
-import { credentialsRepository } from "@/repositories/credentials-repository";
-import { ForbiddenError } from "@/errors/forbidden-error";
+import { notFoundError } from "errors/not-found-error";
+import { findCrendentialByTitle, findCrendentialById, createCredential, getAllCredentials, getCredential, deleteCredential } from "repositories";
+import { ForbiddenError} from "errors";
 
 export async function findByTitle(title: string): Promise<Credential>{
-    const titleFound = await credentialsRepository.findCrendentialByTitle(title);
+    const titleFound = await findCrendentialByTitle(title);
     return titleFound;
 }
 
-export async function findCrendentialById(credentialId: number): Promise<Credential>{
-    const titleFound = await credentialsRepository.findCrendentialById(credentialId);
+export async function findCrendentialByIdService(credentialId: number): Promise<Credential>{
+    const titleFound = await findCrendentialById(credentialId);
     return titleFound;
 }
 
 
-async function createCredential(title: string, url: string, username: string, password: string, userId: number): Promise<Credential>{
+export async function createCredentialService(title: string, url: string, username: string, password: string, userId: number): Promise<Credential>{
 
     const newTitle = await findByTitle(title);
 
@@ -26,20 +25,20 @@ async function createCredential(title: string, url: string, username: string, pa
     //Por ser um dado sensível, o campo de senha da credencial deve ser criptografado usando um segredo da aplicação.
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    return credentialsRepository.createCredential(title, url, username, hashedPassword, userId)
+    return createCredential(title, url, username, hashedPassword, userId)
 }
 
-async function getAllCredentials(): Promise<Credential[]>{
+export async function getAllCredentialsService(): Promise<Credential[]>{
 
-    const credentials = await credentialsRepository.getAllCredentials();
+    const credentials = await getAllCredentials();
     if(credentials.length === 0) throw notFoundError();
 
     return credentials
 }
 
-export async function getCredential(credentialId: number, userId: number): Promise<Credential>{
+export async function getCredentialService(credentialId: number, userId: number): Promise<Credential>{
 
-    const credential = await credentialsRepository.getCredential(credentialId, userId);
+    const credential = await getCredential(credentialId, userId);
     // Se o usuário procurar por uma credencial que não é dele ou que não existe
     if(!credential) throw notFoundError();
 
@@ -49,7 +48,7 @@ export async function getCredential(credentialId: number, userId: number): Promi
     return credential;
 }
 
-export async function deleteCredential(credentialId: number, userId: number): Promise<Credential>{
+export async function deleteCredentialService(credentialId: number, userId: number): Promise<Credential>{
 
     const credential = await findCrendentialById(credentialId);
     // Se o usuário procurar por uma credencial que não é dele ou que não existe
@@ -59,11 +58,7 @@ export async function deleteCredential(credentialId: number, userId: number): Pr
     if(credential.userId != userId) throw ForbiddenError();
     
 
-    await credentialsRepository.deleteCredential(credential.id, userId);
+    await deleteCredential(credential.id, userId);
 
     return credential;
 }
-
-const credentialService = { findByTitle, createCredential, getAllCredentials, getCredential, deleteCredential}
-
-export default credentialService;
