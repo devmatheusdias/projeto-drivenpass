@@ -20,7 +20,7 @@ async function createCredential(title: string, url: string, username: string, pa
 
     const newTitle = await findByTitle(title);
 
-    //Cada credencial deve possuir um título/nome/rótulo único
+    // Cada credencial deve possuir um título/nome/rótulo único
     // if(newTitle.title === title) throw DuplicatedCredentialError();
 
     //Por ser um dado sensível, o campo de senha da credencial deve ser criptografado usando um segredo da aplicação.

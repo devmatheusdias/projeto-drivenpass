@@ -6,6 +6,7 @@ import errorHandlingMiddleware from './middlewares/error-handling-middleware';
 import {usersRouter, authenticationRouter, credentialsRouter, networkRouter} from '@/routers';
 
 const app = express();
+
 app
   .use(cors())
   .use(express.json())
